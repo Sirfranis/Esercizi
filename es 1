@@ -1,0 +1,30 @@
+
+# dizionario che associa a ciasscuna taglia il corrispettivo numero in formato EU, o la differenza da aggiungere per ottenere la taglia EU
+ratios = {
+    "S" : 46,
+    "XL" : 56,
+    "M" : 50,
+    "IT" : 0,
+    "FR" : 4,
+    "UK" : 28,
+    "XXL" : 58,
+}
+
+sizes = ["S", 43, "XL", 40, 44, "M", 12, "IT 35", "IT 43", "FR 12", "UK 50", "XXL", "IT 50"]
+
+# funzione per convertire tutte le taglie nella taglia EU corrispondente
+def convert_size(size_type):
+    # le taglie in formato "S, M, XXL" hanno al massimo lunghezza di stringa pari a 3
+    if(len(size_type)<5):
+        return ratios[size_type[:3]]
+    else:
+        # aggiungo la differenza tra le taglie
+        return int(size_type[-2:]) + ratios[size_type[:2]]
+
+# sostituisco a ciascun elemento della lista il corrispettivo valore in formato EU
+for index, size in enumerate(sizes):
+    if not isinstance(size, int):
+        sizes[index] = convert_size(size)
+
+sizes.sort()
+print(sizes)
